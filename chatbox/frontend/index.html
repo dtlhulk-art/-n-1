@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Luật Bóng Đá</title>
+</head>
+<body>
+  <h1>Chatbot Luật Bóng Đá</h1>
+  <input id="q" placeholder="Nhập câu hỏi...">
+  <button onclick="send()">Gửi</button>
+  <p id="out"></p>
+
+  <script>
+    async function send() {
+      const q = document.getElementById("q").value;
+      const res = await fetch("http://127.0.0.1:8000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: q })
+      });
+      const data = await res.json();
+      document.getElementById("out").textContent = data.answer;
+    }
+  </script>
+</body>
+</html>
